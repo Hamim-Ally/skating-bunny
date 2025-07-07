@@ -1,7 +1,7 @@
 // service-worker.js
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
-  '/', // root
+  '/skating-bunny/', // root
   '/skating-bunny/sandbox/',
   '/skating-bunny/src/script.js',
 ];
