@@ -2,12 +2,8 @@
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
   '/', // root
-  '/index.html',
-  '/bunnyGame.js', // your game logic file if separate
-  'https://assets.codepen.io/264161/rabbit6.glb',
-  'https://esm.sh/three@0.156.1',
-  'https://esm.sh/gsap',
-  // add any shader files or CSS here too
+  '/sandbox/index.html',
+  '/src/script.js',
 ];
 
 // Install
