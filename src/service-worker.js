@@ -2,8 +2,8 @@
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
   '/', // root
-  '/sandbox/index.html',
-  '/src/script.js',
+  './sandbox/index.html',
+  './src/script.js',
 ];
 
 // Install

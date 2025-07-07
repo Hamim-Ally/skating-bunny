@@ -1,89 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Install Skating Bunny</title>
-  <link rel="manifest" href="/src/manifest.json" />
-  <meta name="theme-color" content="#1db954" />
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      background: #121212;
-      color: #fff;
-    }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      background: #1db954;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      background: #1ed760;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>📲 Install Skating Bunny</h1>
-  <button id="installBtn" >Install Now</button>
-
-  <script>
-    // Register the Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/src/service-worker.js')
-        .then(() => console.log('✅ Service Worker registered'))
-        .catch(err => console.error('SW Error:', err));
-    }
-
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // Stop auto popup
-      deferredPrompt = e;
-      installBtn.classList.remove('hidden');
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
-        if (result.outcome === 'accepted') {
-          console.log('✅ User accepted the install prompt');
-        } else {
-          console.log('❌ User dismissed the install prompt');
-        }
-        deferredPrompt = null;
-        installBtn.classList.add('hidden');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Install Skating Bunny</title>
+    <link rel="manifest" href="../src/manifest.json" />
+    <meta name="theme-color" content="#1db954" />
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        background: #121212;
+        color: #fff;
       }
-    });
 
-    window.addEventListener('appinstalled', () => {
-      console.log('🎉 App installed');
-    });
-  </script>
-</body>
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      button {
+        background: #1db954;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        background: #1ed760;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <h1>📲 Install Skating Bunny</h1>
+    <button id="installBtn">Install Now</button>
+
+    <script>
+      // Register the Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('../src/service-worker.js')
+            .then(() => console.log('✅ Service Worker registered'))
+            .catch((err) => console.error('❌ SW error:', err));
+        });
+      }
+
+      let deferredPrompt;
+      const installBtn = document.getElementById('installBtn');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault(); // Stop auto popup
+        deferredPrompt = e;
+        installBtn.classList.remove('hidden');
+      });
+
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const result = await deferredPrompt.userChoice;
+          if (result.outcome === 'accepted') {
+            console.log('✅ User accepted the install prompt');
+          } else {
+            console.log('❌ User dismissed the install prompt');
+          }
+          deferredPrompt = null;
+          installBtn.classList.add('hidden');
+        }
+      });
+
+      window.addEventListener('appinstalled', () => {
+        console.log('🎉 App installed');
+      });
+    </script>
+  </body>
+
 </html>

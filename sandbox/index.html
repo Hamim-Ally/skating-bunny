@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <link rel="manifest" href="/src/manifest.json" />
+        <link rel="manifest" href="./src/manifest.json" />
         <meta name="theme-color" content="#7beeff" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
@@ -33,7 +33,7 @@
 
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/src/service-worker.js')
+                    navigator.serviceWorker.register('./src/service-worker.js')
                         .then(reg => console.log('[SW] Registered', reg.scope))
                         .catch(err => console.error('[SW] Registration failed', err));
                 });
