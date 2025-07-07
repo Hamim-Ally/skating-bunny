@@ -21,7 +21,7 @@
 
 > Want the full-screen, app-like experience on your phone? Tap below 👇
 
-**👉 [Install Game](https://yourdomain.com/install.html)**
+**👉 [Install Game](https://hamim-ally.github.io/skating-bunny/page/install.html)**
 *(Works on Android Chrome & iOS Safari)*
 
 <br>
