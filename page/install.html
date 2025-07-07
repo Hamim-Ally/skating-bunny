@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Install Game</title>
+  <title>Install Skating Bunny</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1db954" />
   <style>
     body {
       margin: 0;
@@ -46,41 +48,42 @@
 <body>
 
   <h1>📲 Install Skating Bunny</h1>
-  <!-- <p>Add it to your home screen like a real app!</p> -->
-  <button id="installBtn" class="">Install Now</button>
+  <button id="installBtn" class="hidden">Install Now</button>
 
   <script>
+    // Register the Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch(err => console.error('SW Error:', err));
+    }
+
     let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Stop auto prompt
-      e.preventDefault();
+      e.preventDefault(); // Stop auto popup
       deferredPrompt = e;
-
-      // Show the install button
       installBtn.classList.remove('hidden');
-
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const result = await deferredPrompt.userChoice;
-          if (result.outcome === 'accepted') {
-            console.log('✅ Installed');
-          } else {
-            console.log('❌ Dismissed');
-          }
-          deferredPrompt = null;
-        }
-      });
     });
 
-    // Optionally check if already installed
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const result = await deferredPrompt.userChoice;
+        if (result.outcome === 'accepted') {
+          console.log('✅ User accepted the install prompt');
+        } else {
+          console.log('❌ User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+        installBtn.classList.add('hidden');
+      }
+    });
+
     window.addEventListener('appinstalled', () => {
-      console.log('🎉 App was installed');
-      installBtn.classList.add('hidden');
+      console.log('🎉 App installed');
     });
   </script>
-
 </body>
 </html>
