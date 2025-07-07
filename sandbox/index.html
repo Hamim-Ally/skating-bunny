@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#7beeff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <head>
+        <meta charset="UTF-8">
+        <link rel="manifest" href="../src/manifest.json" />
+        <meta name="theme-color" content="#7beeff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-    <title>Skating bunny</title>
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-    <link rel="stylesheet" href="./style.css">
+        <title>Skating bunny</title>
+        <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+        <link rel="stylesheet" href="./style.css">
 
-    <script defer>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./service-worker.js')
-            .then(reg => console.log('[SW] Registered', reg.scope))
-            .catch(err => console.error('[SW] Registration failed', err));
-        });
-      }
-    </script>
+        <script defer>
+            // Disable pull-to-refresh on mobile
+            window.addEventListener("touchmove", function (e) {
+                if (e.touches.length > 1) return; // Allow pinch-to-zoom
+                e.preventDefault();
+            }, { passive: false });
+
+            self.addEventListener("install", (e) => {
+                console.log("Service Worker installed ✅");
+                e.waitUntil(self.skipWaiting());
+            });
+
+            self.addEventListener("activate", (e) => {
+                console.log("Service Worker activated ✅");
+            });
+
+            self.addEventListener("fetch", (event) => {
+                event.respondWith(fetch(event.request));
+            });
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('../src/service-worker.js')
+                        .then(reg => console.log('[SW] Registered', reg.scope))
+                        .catch(err => console.error('[SW] Registration failed', err));
+                });
+            }
+        </script>
 
 
-  </head>
+    </head>
 
-  <body>
-    <!-- partial:index.partial.html -->
-    <canvas class="webgl"></canvas>
+    <body>
+        <!-- partial:index.partial.html -->
+        <canvas class="webgl"></canvas>
 
-    <div id="instructions"> - Press to jump - </div>
+        <div id="instructions"> - Press to jump - </div>
 
-    <div id="credits">
-      <p><a href="https://codepen.io/Yakudoo/" target="blank">my other codepens</a> | <a href="http://epic.net"
-          target="blank">epic.net</a></p>
-    </div>
+        <div id="credits">
+            <p><a href="https://codepen.io/Yakudoo/" target="blank">my other codepens</a> | <a href="http://epic.net"
+                    target="blank">epic.net</a></p>
+        </div>
 
-    <script type="x-shader/x-vertex" id="reflectorVertexShader">
+        <script type="x-shader/x-vertex" id="reflectorVertexShader">
   uniform mat4 textureMatrix;
   varying vec4 vUvReflection;
   varying vec2 vUv; 
@@ -61,7 +80,7 @@ void main() {
 }
 </script>
 
-    <script type="x-shader/x-fragment" id="reflectorFragmentShader">
+        <script type="x-shader/x-fragment" id="reflectorFragmentShader">
   uniform vec3 color;
 	uniform sampler2D tDiffuse;
   uniform sampler2D tScratches;
@@ -118,7 +137,7 @@ void main() {
 			#include <colorspace_fragment>
 		}
 </script>
-    <script type="x-shader/x-vertex" id="simulationVertexShader">
+        <script type="x-shader/x-vertex" id="simulationVertexShader">
   precision highp float;
 
   uniform float time;
@@ -131,7 +150,7 @@ void main() {
   }
 </script>
 
-    <script type="x-shader/x-fragment" id="simulationFragmentShader">
+        <script type="x-shader/x-fragment" id="simulationFragmentShader">
   // fragment shader
   precision highp float;
 
@@ -170,14 +189,14 @@ void main() {
 }
 </script>
 
-    <script type="x-shader/x-fragment" id="outlineFragmentShader">
+        <script type="x-shader/x-fragment" id="outlineFragmentShader">
   uniform vec3 color;
   void main(void) {
       gl_FragColor = vec4( color, 1.0);
   }
 </script>
 
-    <script type="x-shader/x-vertex" id="outlineVertexShader">
+        <script type="x-shader/x-vertex" id="outlineVertexShader">
   uniform float size;
   uniform float time;
 
@@ -187,9 +206,9 @@ void main() {
     gl_Position = projectionMatrix * modelViewPosition; 
   }
 </script>
-    <!-- partial -->
-    <script type="module" src="./script.js"></script>
+        <!-- partial -->
+        <script type="module" src="../src/script.js"></script>
 
-  </body>
+    </body>
 
 </html>

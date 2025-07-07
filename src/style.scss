@@ -1,5 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
 
+body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  touch-action: none;
+  background-color: black;
+}
+
+
 .webgl {
   position: fixed;
   top: 0;

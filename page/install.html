@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Install Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      background: #121212;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: #1db954;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #1ed760;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📲 Install Skating Bunny</h1>
+  <!-- <p>Add it to your home screen like a real app!</p> -->
+  <button id="installBtn" class="hidden">Install Now</button>
+
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Stop auto prompt
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // Show the install button
+      installBtn.classList.remove('hidden');
+
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const result = await deferredPrompt.userChoice;
+          if (result.outcome === 'accepted') {
+            console.log('✅ Installed');
+          } else {
+            console.log('❌ Dismissed');
+          }
+          deferredPrompt = null;
+        }
+      });
+    });
+
+    // Optionally check if already installed
+    window.addEventListener('appinstalled', () => {
+      console.log('🎉 App was installed');
+      installBtn.classList.add('hidden');
+    });
+  </script>
+
+</body>
+</html>
