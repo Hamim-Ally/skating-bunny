@@ -1,10 +1,11 @@
 {
-  "name": "Hamim's Bunny Game",
-  "short_name": "Bunny",
-  "start_url": "./index.html",
+  "name": "Skating Bunny",
+  "short_name": "Skating Bunny",
+  "start_url": "../sandbox/index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#7beeff",
+  "orientation": "landscape",
   "icons": [
     {
       "src": "icon-192.png",
