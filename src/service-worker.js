@@ -2,7 +2,7 @@
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
   '/', // root
-  './sandbox/index.html',
+  './sandbox/',
   './src/script.js',
 ];
 
