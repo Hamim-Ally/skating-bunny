@@ -2,6 +2,7 @@
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
   './index.html',
+  './game.html',
   './script.js',
   './manifest.json',
   './style.css',              // if you have styles
