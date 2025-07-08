@@ -5,7 +5,8 @@ const ASSETS_TO_CACHE = [
   './script.js',
   './manifest.json',
   './style.css',              // if you have styles
-  './icon/icon-192.png'            // PWA icon
+  './icons/icon-192.png', // <-- fix this line
+  './icons/icon-512.png' 
 ];
 
 // Install
