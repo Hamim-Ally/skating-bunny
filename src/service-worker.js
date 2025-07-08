@@ -1,9 +1,11 @@
 // service-worker.js
 const CACHE_NAME = 'bunny-game-v1';
 const ASSETS_TO_CACHE = [
-  '../', // root
-  '../sandbox/index.html',
-  '../src/script.js',
+  './index.html',
+  './script.js',
+  './manifest.json',
+  './style.css',              // if you have styles
+  './icon-192.png'            // PWA icon
 ];
 
 // Install
